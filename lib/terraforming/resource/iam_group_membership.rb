@@ -24,7 +24,7 @@ module Terraforming
           membership_name = membership_name_of(group)
 
           attributes = {
-            "group"=> group.group_name,
+            "group" => group.group_name,
             "id" => membership_name,
             "name" => membership_name,
             "users.#" => group_members_of(group).length.to_s,
@@ -44,7 +44,7 @@ module Terraforming
       private
 
       def group_members_of(group)
-        @client.get_group(group_name: group.group_name).users.map { |user| user.user_name }
+        @client.get_group(group_name: group.group_name).map(&:users).flatten.map(&:user_name)
       end
 
       def iam_groups
